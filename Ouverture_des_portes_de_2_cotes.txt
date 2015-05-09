@@ -1,0 +1,21 @@
+#E2 creer par Stargate-Dials
+#Bouton1 -> Un Bouton (sans toggle)
+#Bouton2 -> Un autre Bouton (sans toggle)
+#Open(Porte quelquonque) -> Open(E2)
+@name Ouverture des portes de 2 cotes
+@inputs Bouton1 Bouton2
+@outputs Open
+@persist 
+@trigger 
+
+if(Bouton1 &&changed(Bouton1)){
+    Open = 1
+    timer("reset", 5000)
+}
+if(Bouton2 &&changed(Bouton2)){
+    Open = 1
+    timer("reset", 5000)
+}
+if(clk("reset")){
+    Open = 0
+}

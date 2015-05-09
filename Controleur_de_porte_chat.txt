@@ -1,0 +1,23 @@
+#E2 creer par Stargate-Dials
+#Open(Porte quelquonque) -> Open(E2)
+#Taper "!open" pour ouvrir les portes et "!close" pour les fermer
+@name Controleur de porte chat
+@inputs 
+@outputs Open
+@persist A:string
+@trigger 
+
+runOnChat(1)
+
+if(chatClk(owner())){
+    A = owner():lastSaid():lower()
+if(A == "!open"){
+    Open = 1
+    hint("Portes ouvertes", 15)
+}
+if(A == "!close"){
+    Open = 0
+    hint("Portes fermee", 15)
+}
+hideChat(1)
+}

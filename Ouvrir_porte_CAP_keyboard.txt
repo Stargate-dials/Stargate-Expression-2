@@ -1,0 +1,70 @@
+#E2 creer par Stargate-Dials
+#Porte[WIRELINK] -> Porte du CAP
+#Memory -> Keyboard
+#Password -> Constant Value(Mot de passe)
+#C[STRING] -> Text Screen
+@name Ouvrir portes keyboard
+@inputs Porte:wirelink Memory Password:string
+@outputs C:string
+@persist Character:string
+@trigger
+@model
+
+Character = toChar(Memory)
+if(~Memory && Memory != 13 && Memory != 142 && Memory != 127 && Memory != 129 && Memory != 128 && Memory != 130
+&& Memory != 131 && Memory != 132 && Memory != 133 && Memory != 134 && Memory != 135 && Memory != 136 && Memory != 137){
+    C = C + Character
+}
+if(~Memory && Memory == 128){
+    C = C + "0"
+}
+elseif(~Memory && Memory == 129){
+    C = C + "1"
+}
+elseif(~Memory && Memory == 130){
+    C = C + "2"
+}
+elseif(~Memory && Memory == 131){
+    C = C + "3"
+}
+elseif(~Memory && Memory == 132){
+    C = C + "4"
+}
+elseif(~Memory && Memory == 133){
+    C = C + "5"
+}
+elseif(~Memory && Memory == 134){
+    C = C + "6"
+}
+elseif(~Memory && Memory == 135){
+    C = C + "7"
+}
+elseif(~Memory && Memory == 136){
+    C = C + "8"
+}
+elseif(~Memory && Memory == 137){
+    C = C + "9"
+}
+
+if(~Memory && Memory == 13 || Memory == 142){
+    if(C == Password){
+        Porte:stargateSetWire("Toggle", 1)
+        timer("reset", 100)
+        timer("reset2", 2000)
+    }
+    else{
+        C = "INVALID"
+        timer("reset", 1500)
+    }
+}
+elseif(~Memory && Memory == 127){
+    C = ""
+}
+if(clk("reset")){
+    Porte:stargateSetWire("Toggle", 0)
+    C = ""
+}
+if(clk("reset2")){
+    Porte:stargateSetWire("Toggle", 1)
+    timer("reset", 100)
+}
